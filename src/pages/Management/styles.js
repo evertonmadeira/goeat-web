@@ -9,6 +9,10 @@ const hasCustomer = css`
   }
 `;
 
+const vacancy = css`
+  background: transparent;
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,23 +40,22 @@ export const Content = styled.div`
   }
 `;
 
-export const Tables = styled.div`
-  width: 100%;
-  max-width: 1024px;
-
+export const Table = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: center;
 
   section {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 2;
 
     height: 80px;
     width: 80px;
-    background: transparent;
+    background: #fff;
 
     border: 1px solid #64002a;
     box-sizing: border-box;
@@ -64,14 +67,33 @@ export const Tables = styled.div`
 
     margin: 20px;
 
-    ${(props) => props.hasCustomer && hasCustomer}
-
     strong {
       font-size: 48px;
       font-style: normal;
       color: #64002a;
+
+      button {
+        width: 0;
+        background: transparent;
+        border: none;
+        position: relative;
+        bottom: 32px;
+      }
     }
+
+    ${(props) => props.hasCustomer && hasCustomer}
   }
+`;
+
+export const Tables = styled.div`
+  width: 100%;
+  max-width: 1024px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: stretch;
+  flex-direction: row;
 `;
 
 export const Orders = styled.div`
@@ -109,4 +131,28 @@ export const Orders = styled.div`
       color: #3a3636;
     }
   }
+`;
+
+export const ClientInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 160px;
+  height: 90px;
+  margin: 10px;
+
+  background: #ded5d7;
+  border-radius: 8px;
+
+  position: relative;
+  z-index: 1;
+  bottom: 64px;
+
+  p {
+    padding: 4px 8px;
+    color: #6b6768;
+  }
+
+  ${(props) => props.vacancy && vacancy}
 `;
