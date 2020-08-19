@@ -9,6 +9,15 @@ const hasCustomer = css`
   }
 `;
 
+const wantToPay = css`
+  background: #4ecbf5;
+  border: 1px solid #0082ad;
+
+  strong {
+    color: #0082ad;
+  }
+`;
+
 const vacancy = css`
   background: transparent;
 `;
@@ -71,17 +80,10 @@ export const Table = styled.div`
       font-size: 48px;
       font-style: normal;
       color: #64002a;
-
-      button {
-        width: 0;
-        background: transparent;
-        border: none;
-        position: relative;
-        bottom: 32px;
-      }
     }
 
     ${(props) => props.hasCustomer && hasCustomer}
+    ${(props) => props.wantToPay && wantToPay}
   }
 `;
 
@@ -139,7 +141,7 @@ export const ClientInfo = styled.div`
   align-items: flex-start;
   justify-content: flex-end;
   width: 160px;
-  height: 90px;
+  height: 120px;
   margin: 10px;
 
   background: #ded5d7;
@@ -155,4 +157,40 @@ export const ClientInfo = styled.div`
   }
 
   ${(props) => props.vacancy && vacancy}
+`;
+
+export const DropDown = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: #e8e8e8;
+
+  position: absolute;
+  top: 45px;
+  width: 200px;
+  /* transform: translateX(-45%); */
+  /* background-color: var(--bg); */
+  border: 1px solid #6b6768;
+  /* padding: 1rem; */
+  /* overflow: hidden; */
+
+  button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    border: none;
+    /* border-radius: var(--border-radius); */
+    transition: filter 300ms;
+    padding: 0.5rem;
+
+    p {
+      font-size: 16px;
+    }
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
 `;

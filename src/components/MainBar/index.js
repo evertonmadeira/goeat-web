@@ -10,7 +10,7 @@ const MainBar = () => {
         <Background />
         <Header>
           <h1>
-            goEats <GiHotMeal color="white" />
+            GoEat. <GiHotMeal color="white" />
           </h1>
           <NavBar>
             <Link to="/">Gerência</Link>

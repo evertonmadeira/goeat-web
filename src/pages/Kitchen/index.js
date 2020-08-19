@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { MdKeyboardArrowRight } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
+import { MdKeyboardArrowRight, MdDelete } from 'react-icons/md';
 import MainBar from '../../components/MainBar';
 import {
   Container,
@@ -14,6 +15,7 @@ import api from '../../services/api';
 
 const Kitchen = () => {
   const [orders, setOrders] = useState([]);
+  const history = useHistory();
 
   async function getOrders() {
     await api
@@ -46,8 +48,25 @@ const Kitchen = () => {
     getOrders();
   }
 
+  async function removeOrder(id, table) {
+    try {
+      const answer = window.confirm('Deseja realmente remover o pedido?');
+
+      if (answer === true) {
+        await api.delete(`order/${table}/${id}`);
+
+        getOrders();
+
+        alert(`Pedido removido!`);
+      }
+    } catch (error) {
+      console.log(`Erro ao remover pedido finalizado: ${error}`);
+    }
+  }
+
   useEffect(() => {
-    setInterval(() => getOrders(), 5000);
+    // setInterval(() => getOrders(), 5000);
+    getOrders();
   }, []);
 
   return (
@@ -70,7 +89,7 @@ const Kitchen = () => {
                         MESA: <p>{item.mesa}</p>
                       </strong>
                       <strong>
-                        PEDIDO:
+                        PEDIDO {item.order_number}:
                         {item.pedidos.map((pedido) => (
                         <p key={pedido._id}>
                           {pedido.quantity}x {pedido.nome}
@@ -100,7 +119,7 @@ const Kitchen = () => {
                         MESA: <p>{item.mesa}</p>
                       </strong>
                       <strong>
-                        PEDIDO:
+                        PEDIDO {item.order_number}:
                         {item.pedidos.map((pedido) => (
                         <p key={pedido._id}>
                           {pedido.quantity}x {pedido.nome}
@@ -119,6 +138,7 @@ const Kitchen = () => {
               </>
             ))}
           </Card>
+
           <Card>
             {orders.map((order) => (
               <>
@@ -129,7 +149,7 @@ const Kitchen = () => {
                         MESA: <p>{item.mesa}</p>
                       </strong>
                       <strong>
-                        PEDIDO:
+                        PEDIDO {item.order_number}:
                         {item.pedidos.map((pedido) => (
                         <p key={pedido._id}>
                           {pedido.quantity}x {pedido.nome}
@@ -137,8 +157,11 @@ const Kitchen = () => {
                       ))}
                       </strong>
                     </Content>
-                    <Button type="button">
-                      {/* <MdKeyboardArrowRight size={30} /> */}
+                    <Button
+                      onClick={() => removeOrder(item._id, item.mesa)}
+                      type="button"
+                    >
+                      <MdDelete size={30} />
                     </Button>
                   </OrderCard>
                 ))}
